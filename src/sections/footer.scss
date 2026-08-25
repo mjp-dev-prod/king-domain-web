@@ -1,0 +1,78 @@
+@use '../styles/tokens' as *;
+
+.footer {
+  border-top: 1px solid $ink-3;
+  padding-block: 3rem 2rem;
+
+  &__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    padding-bottom: 2.5rem;
+  }
+
+  &__note {
+    color: $slate-dim;
+    font-size: 0.92rem;
+    max-width: 42ch;
+  }
+
+  &__link {
+    font-size: 0.9rem;
+    color: $gold;
+    border-bottom: 1px solid rgba($gold, 0.45);
+    padding-bottom: 2px;
+    transition: border-color 0.2s $ease-out;
+
+    &:hover { border-color: $gold; }
+  }
+
+  // Oversized wordmark as a closing moment
+  &__wordmark {
+    font-family: $display;
+    font-weight: 700;
+    font-size: clamp(2.6rem, 13vw, 9.5rem);
+    line-height: 0.9;
+    letter-spacing: 0.02em;
+    text-align: center;
+    color: transparent;
+    -webkit-text-stroke: 1px $ink-3;
+    user-select: none;
+    margin-block: 0.5rem 1.5rem;
+  }
+
+  &__base {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    padding-top: 1.75rem;
+    border-top: 1px solid $ink-3;
+    font-size: 0.78rem;
+    color: rgba($slate-dim, 0.75);
+  }
+}
+
+@media (max-width: 560px) {
+  .footer {
+    padding-block: 2.25rem 1.75rem;
+
+    &__top {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+      padding-bottom: 1.75rem;
+    }
+
+    &__note { font-size: 0.88rem; }
+
+    &__link {
+      display: inline-block;
+      padding-block: 0.6rem;
+    }
+
+    &__base { gap: 0.5rem; }
+  }
+}

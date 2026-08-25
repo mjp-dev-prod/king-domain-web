@@ -1,0 +1,113 @@
+@use '../styles/tokens' as *;
+
+.how {
+  &__steps {
+    border-top: 1px solid rgba($ink, 0.14);
+  }
+
+  &__step {
+    border-bottom: 1px solid rgba($ink, 0.14);
+
+    &.is-open {
+      .how__toggle svg { transform: rotate(45deg); }
+      .how__n { color: $gold; }
+    }
+  }
+
+  &__trigger {
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: clamp(1rem, 3vw, 2.5rem);
+    padding: clamp(1.4rem, 3vw, 2rem) 0;
+    background: none;
+    border: 0;
+    text-align: left;
+    cursor: pointer;
+    color: inherit;
+
+    &:hover .how__title { color: $gold; }
+  }
+
+  &__n {
+    font-family: $mono;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    color: rgba($ink, 0.35);
+    transition: color 0.25s $ease-out;
+  }
+
+  &__heading {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    min-width: 0;
+  }
+
+  &__title {
+    font-family: $display;
+    font-weight: 600;
+    font-size: clamp(1.3rem, 2.8vw, 2rem);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    transition: color 0.25s $ease-out;
+  }
+
+  &__summary {
+    font-size: 0.92rem;
+    color: $slate;
+  }
+
+  &__toggle {
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba($ink, 0.18);
+    border-radius: 50%;
+    color: $ink;
+
+    svg { transition: transform 0.3s $ease-out; }
+  }
+
+  // Height is animated by GSAP, so the panel itself carries no padding —
+  // it lives on the inner wrapper, letting height collapse cleanly to 0.
+  &__panel {
+    overflow: hidden;
+    will-change: height;
+  }
+
+  &__panel-inner {
+    padding: 0 0 clamp(1.5rem, 3vw, 2rem);
+    padding-left: clamp(2.6rem, 6vw, 5.2rem);
+
+    p {
+      max-width: 62ch;
+      color: $slate;
+      font-size: 1rem;
+    }
+  }
+}
+
+@media (max-width: 620px) {
+  .how__summary { display: none; }
+  .how__panel-inner {
+    padding-left: 0;
+    p { font-size: 0.94rem; }
+  }
+
+  .how__trigger {
+    gap: 0.9rem;
+    // Keep the row a comfortable touch target.
+    min-height: 56px;
+  }
+
+  .how__title { font-size: 1.15rem; }
+
+  .how__toggle {
+    width: 30px;
+    height: 30px;
+  }
+}

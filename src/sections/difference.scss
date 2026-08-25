@@ -1,0 +1,215 @@
+@use '../styles/tokens' as *;
+
+.difference {
+  &__featured {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+
+  &__card {
+    background: $ink-2;
+    border: 1px solid $ink-3;
+    border-radius: 6px;
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.25s $ease-out;
+
+    &:hover { border-color: rgba($gold, 0.45); }
+
+    h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.7rem;
+    }
+
+    p {
+      color: $slate-dim;
+      font-size: 0.94rem;
+    }
+
+    &--wide {
+      padding: 2rem;
+
+      h3 { font-size: clamp(1.4rem, 2.2vw, 1.75rem); }
+      p { max-width: 44ch; }
+    }
+  }
+
+  &__card-copy { margin-bottom: 1.75rem; }
+
+  &__icon {
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    border: 1px solid $ink-3;
+    border-radius: 4px;
+    color: $gold;
+    margin-bottom: 1.25rem;
+  }
+
+  // ── Artifacts ──────────────────────────────────────────
+  &__artifact {
+    margin-top: auto;
+    background: rgba($ink, 0.55);
+    border: 1px solid $ink-3;
+    border-radius: 5px;
+    padding: 1.1rem;
+  }
+
+  &__artifact-label {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: $mono;
+    font-size: 0.62rem;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: $slate-dim;
+    margin-bottom: 0.9rem;
+
+    svg { color: $gold; }
+  }
+
+  &__evidence {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.85rem;
+    }
+  }
+
+  &__tick {
+    width: 17px;
+    height: 17px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    background: rgba($green-soft, 0.16);
+    color: $green-soft;
+    border-radius: 3px;
+  }
+
+  &__ev-name {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: $paper;
+  }
+
+  &__ev-tag {
+    flex-shrink: 0;
+    font-family: $mono;
+    font-size: 0.58rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: $slate-dim;
+    border: 1px solid $ink-3;
+    border-radius: 3px;
+    padding: 0.15rem 0.4rem;
+  }
+
+  &__states {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.15rem;
+
+    li {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.8rem;
+      color: $slate-dim;
+
+      &.is-done {
+        color: $paper;
+        .difference__state-dot {
+          background: $green-soft;
+          border-color: $green-soft;
+        }
+      }
+    }
+  }
+
+  &__state-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 1.5px solid $ink-3;
+    background: transparent;
+    flex-shrink: 0;
+  }
+}
+
+@media (max-width: 960px) {
+  .difference__grid { grid-template-columns: 1fr; }
+  .difference__featured { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 560px) {
+  .difference__card {
+    padding: 1.35rem;
+    // min-width:auto lets the grid item actually shrink below its content
+    // width — without it the padded card pushes past the viewport.
+    min-width: 0;
+
+    &--wide { padding: 1.35rem; }
+  }
+
+  .difference__card-copy { margin-bottom: 1.35rem; }
+
+  .difference__artifact { padding: 0.9rem; }
+
+  // Keep tick + name on one line; the tag drops beneath, indented to align
+  // with the name rather than sitting on its own row edge-to-edge.
+  .difference__evidence {
+    gap: 0.85rem;
+
+    li {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.15rem 0.6rem;
+      align-items: start;
+    }
+  }
+
+  .difference__tick { margin-top: 0.1rem; }
+
+  .difference__ev-name {
+    white-space: normal;
+    font-size: 0.85rem;
+    line-height: 1.35;
+  }
+
+  .difference__ev-tag {
+    grid-column: 2;
+    justify-self: start;
+  }
+
+  .difference__states {
+    gap: 0.45rem 0.9rem;
+    li { font-size: 0.75rem; }
+  }
+}

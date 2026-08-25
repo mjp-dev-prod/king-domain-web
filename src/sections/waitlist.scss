@@ -1,0 +1,372 @@
+@use '../styles/tokens' as *;
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.waitlist {
+  border-top: 1px solid $ink-3;
+
+  &__inner {
+    max-width: 720px;
+    text-align: center;
+  }
+
+  &__title {
+    font-size: clamp(2.3rem, 6vw, 4.2rem);
+    line-height: 1.02;
+  }
+
+  &__em {
+    font-style: italic;
+    color: $gold;
+  }
+
+  &__sub {
+    margin: 1.5rem auto 0;
+    max-width: 52ch;
+    color: $slate-dim;
+    font-size: 1.05rem;
+  }
+
+  // ── Form ───────────────────────────────────────────────
+  &__form { margin-top: 2.5rem; }
+
+  // Step indicator
+  &__steps {
+    list-style: none;
+    margin: 0 0 1.75rem;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    font-family: $mono;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba($slate-dim, 0.6);
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+
+      span {
+        width: 19px;
+        height: 19px;
+        display: grid;
+        place-items: center;
+        border: 1px solid currentColor;
+        border-radius: 50%;
+        font-size: 0.6rem;
+      }
+
+      &.is-current { color: $gold; }
+
+      &.is-done {
+        color: $green-soft;
+        span { background: rgba($green-soft, 0.14); }
+      }
+    }
+  }
+
+  &__stage { min-height: 1px; }
+
+  &__prompt {
+    font-family: $display;
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+  }
+
+  &__hint {
+    font-size: 0.85rem;
+    color: $slate-dim;
+    margin-bottom: 1.25rem;
+    max-width: 44ch;
+    margin-inline: auto;
+  }
+
+  // ── Category chips ─────────────────────────────────────
+  &__chips {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1.1rem;
+  }
+
+  &__chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: none;
+    color: $slate-dim;
+    border: 1px solid $ink-3;
+    border-radius: 100px;
+    padding: 0.5rem 0.95rem;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: color 0.18s $ease-out, border-color 0.18s $ease-out,
+      background 0.18s $ease-out;
+
+    svg { opacity: 0.6; transition: opacity 0.18s $ease-out; }
+
+    &:hover {
+      color: $paper;
+      border-color: rgba($gold, 0.55);
+    }
+
+    &.is-on {
+      color: $ink;
+      background: $gold;
+      border-color: $gold;
+      font-weight: 600;
+
+      svg { opacity: 1; }
+    }
+  }
+
+  &__other {
+    display: block;
+    max-width: 420px;
+    margin: 0 auto 1.5rem;
+
+    input {
+      width: 100%;
+      background: $ink-2;
+      border: 1px solid $ink-3;
+      border-radius: 4px;
+      color: $paper;
+      padding: 0.75rem 1rem;
+      font-size: 0.9rem;
+      text-align: center;
+      transition: border-color 0.2s $ease-out;
+
+      &::placeholder { color: rgba($slate-dim, 0.6); }
+      &:focus { outline: none; border-color: $gold; }
+    }
+  }
+
+  &__next {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    background: $gold;
+    color: $ink;
+    font-weight: 600;
+    border: 0;
+    border-radius: 4px;
+    padding: 0.9rem 1.6rem;
+    cursor: pointer;
+    transition: background 0.2s $ease-out, opacity 0.2s $ease-out;
+
+    &:hover:not(:disabled) { background: $gold-soft; }
+
+    &:disabled {
+      background: $ink-2;
+      color: rgba($slate-dim, 0.8);
+      cursor: not-allowed;
+    }
+  }
+
+  &__back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: none;
+    border: 0;
+    color: $slate-dim;
+    font-size: 0.82rem;
+    cursor: pointer;
+    padding: 0.35rem 0;
+    margin-bottom: 1.1rem;
+    transition: color 0.2s $ease-out;
+
+    &:hover { color: $paper; }
+  }
+
+  &__recap {
+    font-size: 0.85rem;
+    color: $slate-dim;
+    margin-bottom: 1.35rem;
+
+    strong { color: $gold; font-weight: 500; }
+  }
+
+  &__roles {
+    border: 0;
+    margin: 0 0 1.75rem;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 0.6rem;
+
+    label {
+      font-size: 0.85rem;
+      color: $slate-dim;
+      border: 1px solid $ink-3;
+      border-radius: 100px;
+      padding: 0.45rem 1rem;
+      cursor: pointer;
+      transition: all 0.2s $ease-out;
+
+      &:hover { border-color: rgba($gold, 0.5); }
+
+      &.is-active {
+        color: $ink;
+        background: $paper;
+        border-color: $paper;
+      }
+
+      input {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+      }
+    }
+  }
+
+  &__field {
+    display: flex;
+    gap: 0.5rem;
+    max-width: 520px;
+    margin-inline: auto;
+
+    input {
+      flex: 1;
+      min-width: 0;
+      background: $ink-2;
+      border: 1px solid $ink-3;
+      border-radius: 4px;
+      color: $paper;
+      padding: 0.95rem 1.1rem;
+      transition: border-color 0.2s $ease-out;
+
+      &::placeholder { color: rgba($slate-dim, 0.7); }
+      &:focus {
+        outline: none;
+        border-color: $gold;
+      }
+    }
+
+    button {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: $gold;
+      color: $ink;
+      font-weight: 600;
+      border: 0;
+      border-radius: 4px;
+      padding: 0.95rem 1.4rem;
+      cursor: pointer;
+      transition: background 0.2s $ease-out;
+
+      &:hover:not(:disabled) { background: $gold-soft; }
+      &:disabled { opacity: 0.65; cursor: default; }
+    }
+  }
+
+  &__error {
+    margin-top: 0.85rem;
+    font-size: 0.85rem;
+    color: #E8836B;
+  }
+
+  &__fine {
+    margin-top: 1.25rem;
+    font-size: 0.8rem;
+    color: rgba($slate-dim, 0.75);
+  }
+
+  // ── Success ────────────────────────────────────────────
+  &__success {
+    margin: 2.75rem auto 0;
+    max-width: 460px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-align: left;
+    background: $ink-2;
+    border: 1px solid rgba($green-soft, 0.45);
+    border-radius: 6px;
+    padding: 1.25rem 1.4rem;
+
+    &-icon {
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      background: rgba($green-soft, 0.16);
+      color: $green-soft;
+      border-radius: 50%;
+    }
+
+    &-title { font-weight: 600; }
+
+    &-body {
+      font-size: 0.9rem;
+      color: $slate-dim;
+      margin-top: 0.15rem;
+    }
+  }
+}
+
+@media (max-width: 540px) {
+  .waitlist {
+    &__title { font-size: clamp(1.85rem, 8.5vw, 2.6rem); }
+
+    &__sub {
+      margin-top: 1.1rem;
+      font-size: 0.97rem;
+    }
+
+    &__form { margin-top: 2rem; }
+
+    // Two role pills side by side get very tight — allow them to wrap
+    // rather than squashing the labels.
+    &__roles {
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+      label { font-size: 0.82rem; }
+    }
+
+    &__prompt { font-size: 1.15rem; }
+
+    &__chip {
+      font-size: 0.8rem;
+      padding: 0.45rem 0.8rem;
+    }
+
+    &__next { width: 100%; justify-content: center; }
+
+    &__steps { gap: 1.1rem; }
+
+    &__field {
+      flex-direction: column;
+
+      input { padding: 0.85rem 1rem; }
+
+      button {
+        justify-content: center;
+        padding: 0.9rem 1.4rem;
+      }
+    }
+
+    &__success {
+      margin-top: 2rem;
+      padding: 1.1rem;
+    }
+  }
+}

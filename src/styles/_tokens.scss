@@ -1,0 +1,27 @@
+// King Domain — v0 brand tokens
+// Working direction, not final. See decision ledger.
+
+// ── Color ────────────────────────────────────────────────
+$ink:        #151A2E; // primary dark ground / text
+$ink-2:      #1E2438; // raised dark surface
+$ink-3:      #2A3149; // hairline on dark
+$paper:      #FAF8F3; // warm off-white
+$paper-2:    #F1EEE6; // secondary light surface
+$gold:       #C9A227; // THE accent — CTA, marks, key highlights only
+$gold-soft:  #E0BE4A; // hover / lighter gold on dark
+$green:      #2F7A5E; // proof / verified signal
+$green-soft: #4FA37F;
+$slate:      #5B6178; // secondary text on light
+$slate-dim:  #8A90A3; // secondary text on dark
+
+// ── Type ─────────────────────────────────────────────────
+$display: 'Fraunces', Georgia, 'Times New Roman', serif;
+$body:    'Public Sans', -apple-system, 'Segoe UI', Roboto, sans-serif;
+$mono:    'JetBrains Mono', ui-monospace, Consolas, monospace;
+
+// ── Scale ────────────────────────────────────────────────
+$max-w:   1200px;
+$gutter:  clamp(1.25rem, 4vw, 4rem);
+
+// ── Motion ───────────────────────────────────────────────
+$ease-out: cubic-bezier(0.16, 1, 0.3, 1);

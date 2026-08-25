@@ -1,0 +1,87 @@
+@use '../styles/tokens' as *;
+
+.status {
+  background: $ink-2;
+  border-block: 1px solid $ink-3;
+  padding-block: 1.6rem;
+
+  &__inner {
+    display: flex;
+    align-items: center;
+    gap: clamp(1.25rem, 4vw, 3rem);
+    flex-wrap: wrap;
+  }
+
+  &__label {
+    font-family: $mono;
+    font-size: 0.64rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: $slate-dim;
+    flex-shrink: 0;
+  }
+
+  &__track {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.7rem clamp(1.1rem, 3vw, 2.25rem);
+    flex: 1;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-size: 0.85rem;
+    color: $slate-dim;
+
+    &.is-done {
+      color: $paper;
+      .status__dot { background: $green-soft; border-color: $green-soft; }
+    }
+
+    &.is-active {
+      color: $gold;
+      .status__dot {
+        border-color: $gold;
+        background: $gold;
+        box-shadow: 0 0 0 3px rgba($gold, 0.2);
+      }
+    }
+  }
+
+  &__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 1.5px solid $ink-3;
+    flex-shrink: 0;
+  }
+}
+
+@media (max-width: 720px) {
+  .status {
+    padding-block: 1.35rem;
+
+    &__inner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.9rem;
+    }
+
+    // A four-item row wraps into an unreadable jumble at this width;
+    // a stacked list keeps the sequence legible.
+    &__track {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.55rem;
+      width: 100%;
+    }
+
+    &__item { font-size: 0.82rem; }
+  }
+}
