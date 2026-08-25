@@ -1,4 +1,6 @@
+import { useEffect } from 'react'
 import { Head } from 'vite-react-ssg/single-page'
+import { initAnalytics } from './lib/analytics'
 import { Nav } from './sections/Nav'
 import { Hero } from './sections/Hero'
 import { Problem } from './sections/Problem'
@@ -12,6 +14,10 @@ const DESCRIPTION =
   'King Domain is a marketplace where student and emerging talent prove their skills, work under protected payment terms, and build a reputation that lasts beyond graduation. Join the waitlist for early access.'
 
 function App() {
+  useEffect(() => {
+    initAnalytics()
+  }, [])
+
   return (
     <>
       <Head>

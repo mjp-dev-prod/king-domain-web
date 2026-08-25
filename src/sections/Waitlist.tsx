@@ -4,6 +4,7 @@ import { ArrowRight, ArrowLeft, Check, Plus } from 'lucide-react'
 import { useReveal } from '../hooks/useReveal'
 import { joinWaitlist } from '../lib/api'
 import { CATEGORIES } from '../lib/categories'
+import { track } from '../lib/analytics'
 import './waitlist.scss'
 
 type State = 'idle' | 'sending' | 'done' | 'error'
@@ -36,6 +37,13 @@ export function Waitlist() {
 
   const stageRef = useRef<HTMLDivElement>(null)
   const mounted = useRef(false)
+  const startedTracked = useRef(false)
+
+  function trackFormStart() {
+    if (startedTracked.current) return
+    startedTracked.current = true
+    track.waitlistStepOneStarted()
+  }
 
   // Slide between steps rather than snapping.
   useEffect(() => {
@@ -57,11 +65,19 @@ export function Waitlist() {
   const hasPick = picked.length > 0 || note.trim().length > 0
 
   function toggle(category: string) {
-    setPicked((current) =>
-      current.includes(category)
-        ? current.filter((c) => c !== category)
-        : [...current, category],
-    )
+    trackFormStart()
+    setPicked((current) => {
+      const willSelect = !current.includes(category)
+      track.categoryToggled(category, willSelect)
+      return willSelect ? [...current, category] : current.filter((c) => c !== category)
+    })
+  }
+
+  function selectRole(next: Role) {
+    trackFormStart()
+    setRole(next)
+    setPicked([])
+    track.roleSelected(next)
   }
 
   async function onSubmit(event: FormEvent) {
@@ -80,9 +96,11 @@ export function Waitlist() {
 
     if (result.ok) {
       setState('done')
+      track.submitted(role, picked.length, note.trim().length > 0)
     } else {
       setState('error')
       setMessage(result.error)
+      track.error(result.error)
     }
   }
 
@@ -144,10 +162,7 @@ export function Waitlist() {
                         name="role"
                         value="talent"
                         checked={role === 'talent'}
-                        onChange={() => {
-                          setRole('talent')
-                          setPicked([])
-                        }}
+                        onChange={() => selectRole('talent')}
                       />
                       I have skills to offer
                     </label>
@@ -157,10 +172,7 @@ export function Waitlist() {
                         name="role"
                         value="client"
                         checked={role === 'client'}
-                        onChange={() => {
-                          setRole('client')
-                          setPicked([])
-                        }}
+                        onChange={() => selectRole('client')}
                       />
                       I want to hire
                     </label>
@@ -196,7 +208,10 @@ export function Waitlist() {
                     <input
                       type="text"
                       value={note}
-                      onChange={(e) => setNote(e.target.value)}
+                      onChange={(e) => {
+                        trackFormStart()
+                        setNote(e.target.value)
+                      }}
                       placeholder={copy.otherPlaceholder}
                       maxLength={140}
                     />
@@ -205,7 +220,10 @@ export function Waitlist() {
                   <button
                     type="button"
                     className="waitlist__next"
-                    onClick={() => setStep(2)}
+                    onClick={() => {
+                      setStep(2)
+                      track.stepTwoReached(role, picked.length)
+                    }}
                     disabled={!hasPick}
                   >
                     {hasPick ? 'Continue' : 'Pick at least one'}

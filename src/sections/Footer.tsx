@@ -1,3 +1,4 @@
+import { track } from '../lib/analytics'
 import './footer.scss'
 
 export function Footer() {
@@ -8,7 +9,7 @@ export function Footer() {
           <p className="footer__note">
             A working draft of something we think should exist. Built in public.
           </p>
-          <a className="footer__link" href="#waitlist">
+          <a className="footer__link" href="#waitlist" onClick={() => track.ctaClicked('footer')}>
             Join the waitlist
           </a>
         </div>

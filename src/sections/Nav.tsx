@@ -1,3 +1,4 @@
+import { track } from '../lib/analytics'
 import './nav.scss'
 
 export function Nav() {
@@ -15,7 +16,7 @@ export function Nav() {
           <a href="#how">How it works</a>
         </nav>
 
-        <a className="nav__cta" href="#waitlist">
+        <a className="nav__cta" href="#waitlist" onClick={() => track.ctaClicked('nav')}>
           Join waitlist
         </a>
       </div>

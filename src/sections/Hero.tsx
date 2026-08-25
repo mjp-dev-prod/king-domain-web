@@ -2,6 +2,7 @@ import { useRef } from 'react'
 import { gsap } from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { ShieldCheck, BadgeCheck, ArrowRight } from 'lucide-react'
+import { track } from '../lib/analytics'
 import './hero.scss'
 
 export function Hero() {
@@ -55,7 +56,7 @@ export function Hero() {
           </p>
 
           <div className="hero__actions">
-            <a className="hero__cta" href="#waitlist">
+            <a className="hero__cta" href="#waitlist" onClick={() => track.ctaClicked('hero')}>
               Join the waitlist
               <ArrowRight size={17} strokeWidth={2.2} aria-hidden="true" />
             </a>
